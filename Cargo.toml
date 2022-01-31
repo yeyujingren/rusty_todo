@@ -1,0 +1,20 @@
+[package]
+name = "rusty-todo"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0"
+home = "0.5"
+structopt = "0.3"
+serde_json = "1.0"
+
+[dependencies.serde]  # 将 serde 添加到期对应的部分（因为我们需要有条件地编译某些 serde 特征）
+version = "1.0"
+features = ["derive"]   
+
+[dependencies.chrono]
+version = "0.4"
+features = ["serde"] # 我们还需要 chrono crate 的 serde 功能，所以我们可以序列化 DateTime 字段
