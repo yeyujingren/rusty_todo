@@ -1,5 +1,6 @@
 use structopt::StructOpt;
 use std::path::PathBuf;
+use std::env::current_dir;
 use anyhow::anyhow;
 mod cli;
 mod tasks;
@@ -8,7 +9,14 @@ use cli::{Action::*, CommandLineArgs};
 use tasks::Task;
 
 fn find_default_todo_file() -> Option<PathBuf> {
-    home::home_dir().map(|mut path| {
+    // 用户目录下，一般在设计软件，有关配置相关的文件，我们一般放在用户目录下
+    // home::home_dir().map(|mut path| {
+    //     path.push(".rusty-todo.json");
+    //     path
+    // })
+
+    // 案例中，我们选择当前项目目录即可
+    current_dir().ok().map(|mut path| {
         path.push(".rusty-todo.json");
         path
     })
